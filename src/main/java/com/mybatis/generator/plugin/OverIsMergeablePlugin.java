@@ -7,6 +7,10 @@ import org.mybatis.generator.api.PluginAdapter;
 import java.lang.reflect.Field;
 import java.util.List;
 
+/**
+ * @author wanghongen
+ * 27/02/2018
+ */
 public class OverIsMergeablePlugin extends PluginAdapter {
 
     @Override
