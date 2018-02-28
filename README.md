@@ -18,3 +18,8 @@
      <!-- example包名 -->
      <property name="targetPackage" value="${example.target.package}"/>
  </plugin>`
+ 
+ ### 4.Lombok插件 在实体里增加@Data 不生成Get、Set方法
+ >
+ `<!-- Lombok插件 -->
+ <plugin type="com.mybatis.generator.plugin.LombokPlugin"/>`
