@@ -13,7 +13,8 @@
 </commentGenerator>`
 ### 3.Example生成位置
 >
-`<plugin type="com.mybatis.generator.plugin.ExamplePlugin">
+`<!-- Example 目标包修改插件 -->
+<plugin type="com.mybatis.generator.plugin.ExampleTargetPlugin">
      <!-- example包名 -->
-     <property name="exampleTargetPackage" value="${example.target.package}"/>
+     <property name="targetPackage" value="${example.target.package}"/>
  </plugin>`
