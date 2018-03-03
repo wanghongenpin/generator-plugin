@@ -291,6 +291,7 @@ public class MyCommentGenerator implements CommentGenerator {
             method.addJavaDocLine(sb.toString());
         }
         if (method.getReturnType() != null) {
+            method.addJavaDocLine(" * ");
             sb.setLength(0);
             sb.append(" * @return " + method.getReturnType().getShortName());
             if ("int".equals(method.getReturnType().getShortName())) {
