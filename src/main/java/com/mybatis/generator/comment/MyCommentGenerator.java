@@ -87,7 +87,6 @@ public class MyCommentGenerator implements CommentGenerator {
         }
         StringBuilder sb = new StringBuilder();
         innerClass.addJavaDocLine("/**");
-        sb.append(" * haha");
         sb.append(" * ");
         sb.append(introspectedTable.getFullyQualifiedTable());
         innerClass.addJavaDocLine(PATTERN.matcher(sb.toString()).replaceAll(Matcher.quoteReplacement(" ")));
