@@ -30,11 +30,6 @@
             <artifactId>mybatis-generator-core</artifactId>
             <version>1.3.6</version>
         </dependency>
-        <dependency>
-            <groupId>com.mybatis.generator.plugin</groupId>
-            <artifactId>generator-plugin</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
     <distributionManagement>

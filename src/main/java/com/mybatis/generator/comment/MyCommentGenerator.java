@@ -290,7 +290,18 @@ public class MyCommentGenerator implements CommentGenerator {
             }
             method.addJavaDocLine(sb.toString());
         }
-
+        if (method.getReturnType() != null) {
+            sb.setLength(0);
+            sb.append(" * @return " + method.getReturnType().getShortName());
+            if ("int".equals(method.getReturnType().getShortName())) {
+                sb.append(" 影响行数");
+            } else if ("long".equals(method.getReturnType().getShortName())) {
+                sb.append(" 记录数");
+            } else if (introspectedTable.getTableConfiguration().getModelType().getModelType().equals(method.getReturnType().getShortName())) {
+                sb.append(' ' + introspectedTable.getRemarks());
+            }
+            method.addJavaDocLine(sb.toString());
+        }
         method.addJavaDocLine(" */"); //$NON-NLS-1$
     }
 
