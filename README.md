@@ -18,13 +18,9 @@
 >
 ```xml
 <!-- 修改生成的Example类的类名和Mapper类中的方法名或参数名 -->
-<plugin type="com.mybatis.generator.plugin.ExampleConfigPlugin">
-    <!-- example包名 -->
-    <property name="targetPackage" value="${example.target.package}"/>
-    <property name="classMethodSearchString" value="Example"/>
-    <property name="classMethodReplaceString" value="Condition"/>
-    <property name="parameterSearchString" value="example"/>
-    <property name="parameterReplaceString" value="condition"/>
+<plugin type="com.mybatis.generator.plugin.RenameExampleClassPlugin">
+       <property name="searchString" value="Example$"/>
+       <property name="replaceString" value="Condition"/>
 </plugin>
 ```
  

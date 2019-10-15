@@ -11,40 +11,25 @@
         <java.version>1.8</java.version>
         <mysql.version>5.1.38</mysql.version>
     </properties>
-    <repositories>
-        <repository>
-            <id>kkc</id>
-            <name>kanche public</name>
-            <url>https://maven.kanche.com/content/repositories/public/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core -->
         <dependency>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
-            <version>1.3.6</version>
+            <version>1.3.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.4.6</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.13</version>
         </dependency>
     </dependencies>
-
-    <distributionManagement>
-        <repository>
-            <id>kkc</id>
-            <name>kanche Release Repository</name>
-            <url>https://maven.kanche.com/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>kkc</id>
-            <name>kanche Snapshot Repository</name>
-            <url>https://maven.kanche.com/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <build>
         <plugins>
             <plugin>
@@ -59,18 +44,13 @@
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.3.6</version>
+                <version>1.3.7</version>
                 <configuration>
                     <configurationFile>src/main/resources/generator/generatorConfig.xml</configurationFile>
                     <verbose>true</verbose>
                     <overwrite>true</overwrite>
                 </configuration>
                 <dependencies>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.45</version>
-                    </dependency>
                     <dependency>
                         <groupId>com.mybatis.generator.plugin</groupId>
                         <artifactId>generator-plugin</artifactId>

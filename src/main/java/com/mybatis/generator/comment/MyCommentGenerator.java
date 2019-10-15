@@ -239,27 +239,27 @@ public class MyCommentGenerator implements CommentGenerator {
             sb.append(" 内部构建查询条件对象");
         } else if ("clear".equals(method_name)) {
             sb.append(" 清除查询条件");
-        } else if ("countByExample".equals(method_name)) {
+        } else if ("countByExample".equals(method_name) || "countByCondition".equals(method_name)) {
             sb.append(" 根据指定的条件获取数据库记录数");
-        } else if ("deleteByExample".equals(method_name)) {
+        } else if ("deleteByExample".equals(method_name) || "deleteByCondition".equals(method_name)) {
             sb.append(" 根据指定的条件删除数据库符合条件的记录");
-        } else if ("deleteByPrimaryKey".equals(method_name)) {
+        } else if ("deleteByPrimaryKey".equals(method_name) || "deleteById".equals(method_name)) {
             sb.append(" 根据主键删除数据库的记录");
         } else if ("insert".equals(method_name)) {
             sb.append(" 新写入数据库记录");
         } else if ("insertSelective".equals(method_name)) {
             sb.append(" 动态字段,写入数据库记录");
-        } else if ("selectByExample".equals(method_name)) {
+        } else if ("selectByExample".equals(method_name) || "selectByCondition".equals(method_name)) {
             sb.append(" 根据指定的条件查询符合条件的数据库记录");
-        } else if ("selectByPrimaryKey".equals(method_name)) {
+        } else if ("selectByPrimaryKey".equals(method_name) || "selectById".equals(method_name)) {
             sb.append(" 根据指定主键获取一条数据库记录");
-        } else if ("updateByExampleSelective".equals(method_name)) {
+        } else if ("updateByExampleSelective".equals(method_name) || "updateByConditionSelective".equals(method_name)) {
             sb.append(" 动态根据指定的条件来更新符合条件的数据库记录");
-        } else if ("updateByExample".equals(method_name)) {
+        } else if ("updateByExample".equals(method_name) || "updateByCondition".equals(method_name)) {
             sb.append(" 根据指定的条件来更新符合条件的数据库记录");
-        } else if ("updateByPrimaryKeySelective".equals(method_name)) {
+        } else if ("updateByPrimaryKeySelective".equals(method_name) || "updateByIdSelective".equals(method_name)) {
             sb.append(" 动态字段,根据主键来更新符合条件的数据库记录");
-        } else if ("updateByPrimaryKey".equals(method_name)) {
+        } else if ("updateByPrimaryKey".equals(method_name) || "updateById".equals(method_name)) {
             sb.append(" 根据主键来更新符合条件的数据库记录");
         }
         method.addJavaDocLine(sb.toString());

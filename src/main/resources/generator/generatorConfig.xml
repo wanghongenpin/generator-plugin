@@ -7,38 +7,22 @@
     <properties resource="generator/generator.properties"/>
 
     <context id="mysql" targetRuntime="MyBatis3">
-        <!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；
-                   一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖
-                -->
-        <property name="autoDelimitKeywords" value="false"/>
         <!-- 生成的Java文件的编码 -->
         <property name="javaFileEncoding" value="UTF-8"/>
-        <!-- 格式化java代码 -->
-        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
-        <!-- 格式化XML代码 -->
-        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
-
-        <!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； -->
-        <property name="beginningDelimiter" value="`"/>
-        <property name="endingDelimiter" value="`"/>
 
         <!--重新生成覆盖原mapper.XML文件-->
         <plugin type="com.mybatis.generator.plugin.OverIsMergeablePlugin"/>
         <!-- Example和mapper类中文注释 -->
         <plugin type="com.mybatis.generator.plugin.CommentPlugin"/>
+
         <!-- .Lombok插件 默认在实体类里增加@Data 不生成Get、Set方法 -->
         <plugin type="com.mybatis.generator.plugin.LombokPlugin">
             <property name="lombokAnnotations" value="@Data"/>
         </plugin>
-
         <!-- 修改生成的Example类的类名和Mapper类中的方法名或参数名-->
-        <plugin type="com.mybatis.generator.plugin.ExampleConfigPlugin">
-            <!-- example包名 -->
-            <property name="targetPackage" value="${example.target.package}"/>
-            <property name="classMethodSearchString" value="Example"/>
-            <property name="classMethodReplaceString" value="Condition"/>
-            <property name="parameterSearchString" value="example"/>
-            <property name="parameterReplaceString" value="condition"/>
+        <plugin type="com.mybatis.generator.plugin.RenameExampleClassPlugin">
+            <property name="searchString" value="Example$"/>
+            <property name="replaceString" value="Condition"/>
         </plugin>
         <!--生成中文注释-->
         <commentGenerator type="com.mybatis.generator.comment.MyCommentGenerator">
@@ -48,54 +32,33 @@
             <property name="suppressAllComments" value="false"/>
         </commentGenerator>
 
+
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="${jdbc.driverClass}" connectionURL="${jdbc.connectionURL}" userId="${jdbc.user}"
                         password="${jdbc.password}">
             <property name="useInformationSchema" value="true"/>
         </jdbcConnection>
 
-        <!-- java类型处理器
-            用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
-            注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型；
-        -->
-        <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
-            <!--
-                true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
-                false：默认,
-                    scale>0;length>18：使用BigDecimal;
-                    scale=0;length[10,18]：使用Long；
-                    scale=0;length[5,9]：使用Integer；
-                    scale=0;length<5：使用Short；
-             -->
-            <property name="forceBigDecimals" value="false"/>
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+           NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+            <!-- This property is used to specify whether MyBatis Generator should force the use of JSR-310 data types for DATE, TIME,
+            and TIMESTAMP fields, rather than using java.util.Date -->
+            <property name="useJSR310Types" value="true"/>
         </javaTypeResolver>
 
 
         <!-- 配置生成实体类的包名和位置 -->
         <javaModelGenerator targetPackage="${java.target.package}" targetProject="src/main/java">
-            <!--  for MyBatis3/MyBatis3Simple
-                自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；
-             -->
-            <property name="constructorBased" value="false"/>
-
             <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
             <property name="enableSubPackages" value="true"/>
-
-            <!-- for MyBatis3 / MyBatis3Simple
-                是否创建一个不可变的类，如果为true，
-                那么MBG会创建一个没有setter方法的类，取而代之的是类似constructorBased的类
-             -->
-            <property name="immutable" value="false"/>
-
             <!-- 设置一个根对象，
                 如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类；在Table的rootClass属性中可以覆盖该选项
                 注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括：
                     1，属性名相同，类型相同，有相同的getter/setter方法；
              -->
             <!--<property name="rootClass" value="com.indexes.server.domain.BaseDomain"/>-->
-
-            <!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
-            <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
 
@@ -167,14 +130,18 @@
 
             注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
          -->
-
-        <table tableName="model_model" domainObjectName="Model" enableSelectByPrimaryKey="true"
-               enableCountByExample="true"
-               enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true">
-            <!--generatedKey 用作插入时获取主键值-->
-            <!--<generatedKey column="entity_id" sqlStatement="mysql" identity="false"/>-->
+<!--        <table tableName="dubbo_interface_method" domainObjectName="InterfaceMethod">-->
+<!--            <property name="selectAllOrderByClause" value="id DESC"/>-->
+<!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+<!--        </table>-->
+        <table tableName="open_api" domainObjectName="Api">
+            <property name="selectAllOrderByClause" value="id DESC"/>
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-
+<!--        <table tableName="api_response_param" domainObjectName="ApiResponseParam">-->
+<!--            <property name="selectAllOrderByClause" value="id DESC"/>-->
+<!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+<!--        </table>-->
     </context>
 
 </generatorConfiguration>
